@@ -1,18 +1,29 @@
-import { useEffect } from 'react';
+import { AxiosResponse } from 'axios';
+import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { Container } from './styles';
 
-export function TransactionTable(){
-    useEffect(()=>{
-        async function loadTransactions(){
-            const response = await api.get('/transactions');
-            console.log(response.data)
+interface ITransaction{
+    id: number,
+    title: string,
+    amount: number,
+    type: string,
+    createdAt: Date,
+}
+
+export function TransactionTable() {
+    const [transactions, setTransactions] = useState<ITransaction[]>([]);
+
+    useEffect(() => {
+        async function loadTransactions() {
+            const response = await api.get('/transactions')
+            setTransactions(response.data.transactions)
         }
 
         loadTransactions();
-    },[])
+    }, [])
 
-    return(
+    return (
         <Container>
             <table>
                 <thead>
@@ -23,20 +34,20 @@ export function TransactionTable(){
                         <th>Data</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
-                    <tr>
-                        <td>Desenvolvimento de web site</td>
-                        <td className="deposit">R$: 12.000,00</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2021</td>
-                    </tr>
-                    <tr>
-                        <td>Aluguél</td>
-                        <td className="withdraw">- R$: 750.00</td>
-                        <td>Moradia</td>
-                        <td>20/02/2021</td>
-                    </tr>
+                    {transactions.map(transaction => (
+                        <tr key={transaction.id}>
+                            <td>{transaction.title}</td>
+                            <td className={transaction.type}>
+                                {transaction.type === 'withdraw' ? '-' : ''}    
+                                R$: {transaction.amount}
+                            </td>
+                            <td>{transaction.type}</td>
+                            <td>{transaction.createdAt}</td>
+                        </tr>
+                    ))}
+
                 </tbody>
             </table>
         </Container>
