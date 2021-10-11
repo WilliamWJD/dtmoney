@@ -1,4 +1,4 @@
-<h1 align="center"> <img src="./src/assets/logo.svg"/></h1>
+<h1 align="center"> DT-MONEY</h1>
 <p align="center">Controle suas receitas e despesas</p>
 
 
@@ -28,11 +28,6 @@ Projeto desenvolvido com as seguintes tecnologias:
 - Cria uma branch com a sua feature: `git checkout -b minha-feature`;
 - Faça commit das suas alterações: `git commit -m 'feat: Minha nova feature'`;
 - Faça push para a sua branch: `git push origin minha-feature`.
-
-
-## :memo: Licença
-
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
 
 ---
 
