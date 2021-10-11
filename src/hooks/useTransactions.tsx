@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
-import { api } from './services/api';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { api } from '../services/api';
 
 interface ITransaction {
     id: number,
@@ -26,7 +26,7 @@ interface TransactionsProviderProps {
     children: ReactNode
 }
 
-export const TransactionsContext = createContext<TransactionsContextData>({} as TransactionsContextData);
+const TransactionsContext = createContext<TransactionsContextData>({} as TransactionsContextData);
 
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
     const [transactions, setTransactions] = useState<ITransaction[]>([]);
@@ -38,7 +38,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
         }
 
         loadTransactions();
-    }, [transactions])
+    }, [])
 
     async function createTransaction(transactionInput: TransactionInput) {
         const response = await api.post('/transactions', {
@@ -58,4 +58,10 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
             {children}
         </TransactionsContext.Provider>
     )
+}
+
+export function useTransactions(){
+    const context = useContext(TransactionsContext);
+
+    return context
 }
