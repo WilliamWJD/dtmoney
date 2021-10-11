@@ -3,7 +3,7 @@ import { TransactionsContext } from '../../TransactionsContext';
 import { Container } from './styles';
 
 export function TransactionTable() {
-    const data = useContext(TransactionsContext)
+    const { transactions } = useContext(TransactionsContext)
 
     return (
         <Container>
@@ -18,7 +18,7 @@ export function TransactionTable() {
                 </thead>
 
                 <tbody>
-                    {data.map(transaction => (
+                    {transactions.map(transaction => (
                         <tr key={transaction.id}>
                             <td>{transaction.title}</td>
                             <td className={transaction.type}>
@@ -26,7 +26,7 @@ export function TransactionTable() {
                                 {new Intl.NumberFormat('pt-BR', {
                                     style: 'currency',
                                     currency: 'BRL'
-                                }).format(transaction.amount)}
+                                }).format(transaction.value)}
                             </td>
                             <td>{transaction.type}</td>
                             <td>
