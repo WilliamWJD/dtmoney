@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
+import { ToastContainer } from 'react-toastify';
 
 import { TransactionsProvider } from './hooks/useTransactions';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Dashboard } from './components/Dashboard';
 import { Header } from './components/Header';
@@ -24,6 +27,7 @@ export function App() {
   return (
     <TransactionsProvider>
       <GlobalStyle />
+      <ToastContainer />
       <Header
         onOpenNewTransactionModal={handleOpenNewTransactionModal}
       />

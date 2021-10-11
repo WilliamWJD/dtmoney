@@ -1,5 +1,6 @@
 import { FormEvent, useState, useContext } from 'react';
 import Modal from 'react-modal';
+import { toast } from 'react-toastify';
 
 import { useTransactions } from '../../hooks/useTransactions';
 
@@ -39,6 +40,8 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
         setType('deposit')
 
         onRequestClose();
+
+        toast.success('Transação cadastrada com sucesso!')
     }
 
     return (
