@@ -1,9 +1,8 @@
-import { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { Container } from './styles';
 
-interface ITransaction{
+interface ITransaction {
     id: number,
     title: string,
     amount: number,
@@ -40,11 +39,16 @@ export function TransactionTable() {
                         <tr key={transaction.id}>
                             <td>{transaction.title}</td>
                             <td className={transaction.type}>
-                                {transaction.type === 'withdraw' ? '-' : ''}    
-                                R$: {transaction.amount}
+                                {transaction.type === 'withdraw' ? '-' : ''}
+                                {new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL'
+                                }).format(transaction.amount)}
                             </td>
                             <td>{transaction.type}</td>
-                            <td>{transaction.createdAt}</td>
+                            <td>
+                                {new Intl.DateTimeFormat('pt-BR').format(new Date(transaction.createdAt))}
+                            </td>
                         </tr>
                     ))}
 
